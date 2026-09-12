@@ -1,0 +1,31 @@
+name: Manually repair and verify Mac launcher
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - rid: osx-x64
+            runner: macos-15-intel
+            sha256: 6d14cf234eb7bee66239289d6b8dc9df50518d2d3ef9ee697d5de87a5f8f75e1
+          - rid: osx-arm64
+            runner: macos-15
+            sha256: 6c98ca4424cd429bf461ef1704fde83b046144a9fe63500e907876e8c0d8d91a
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Sign, verify and launch on native macOS
+        run: python3 tools/repair-mac-launcher.py '${{ matrix.rid }}' '${{ matrix.sha256 }}'
+      - name: Preserve verified package and evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: verified-launcher-${{ matrix.rid }}
+          path: verified-output/
+          if-no-files-found: warn
+          retention-days: 14
