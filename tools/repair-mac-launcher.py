@@ -53,9 +53,10 @@ assert (output/'direct-launch.png').stat().st_size>10000
 # Exercise LaunchServices separately, using the same app entry point as Finder.
 subprocess.run(['/usr/bin/open','-n','-a',str(app),'--args','--render',str(output/'launchservices.png')],check=True)
 for _ in range(180):
-    if (output/'launchservices.png').exists():break
+    image=output/'launchservices.png'
+    if image.exists() and image.stat().st_size>10000 and image.read_bytes().endswith(b'\x00\x00\x00\x00IEND\xaeB\x60\x82'):break
     time.sleep(.5)
-assert (output/'launchservices.png').stat().st_size>10000, 'LaunchServices did not produce the render'
+assert image.exists() and image.read_bytes().endswith(b'\x00\x00\x00\x00IEND\xaeB\x60\x82'), 'LaunchServices did not finish the render'
 # Resource seals must still verify after launch.
 subprocess.run(['/usr/bin/codesign','--verify','--deep','--strict',str(app)],check=True)
 archive=output/f'AlderWyn-Launcher-v0.1.0-{rid}-macfix1.zip'
