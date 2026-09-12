@@ -1,5 +1,7 @@
 # Set up AlderWyn Launcher and GitHub updates
 
+**Mac launcher repair:** use downloads ending in `macfix1.zip` from GitHub. These have complete development signatures and passed native Intel and Apple silicon startup and archive checks. The original Windows-packaged launcher archives are superseded. For details, see [Mac repair instructions](https://github.com/tropicalidiot/AlderWyn-Distribution/blob/main/MAC-LAUNCHER-FIX.md). Future `bundle.py` packaging must run on macOS; it signs the bundle, preserves relative links with `ditto`, and verifies a fresh extraction. Apple notarization remains outstanding.
+
 Your launcher is now configured for [tropicalidiot/AlderWyn-Distribution](https://github.com/tropicalidiot/AlderWyn-Distribution). Download the matching launcher from that repository's Releases page. The manual instructions below also explain how to repeat setup for another repository and publish future updates. Your Unity source stays private; only packaged builds, the public manifest and patch notes are distributed.
 
 The initial game release is **0.1.0**. For your next game update use **0.1.1** (or a later semantic version), replacing the tutorial's 0.0.1 / 0.0.2 examples accordingly. The checked-in launcher configuration already contains `tropicalidiot`; no placeholder needs editing for your repository. Native Mac launch testing and Apple signing/notarization still require a Mac.

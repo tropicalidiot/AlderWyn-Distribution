@@ -1,0 +1,16 @@
+{
+  "rid": "osx-x64",
+  "macOS": "15.7.9",
+  "cpu": "x86_64",
+  "bundleBuild": "2",
+  "nativeBinariesSigned": 18,
+  "appleCodesignStrictVerification": true,
+  "nativeDirectLaunch": true,
+  "launchServicesRender": true,
+  "sha256": "a8b98e9f335f3acfdd8a93f681cad79ad551927d385960fc2e1b9e6dba80fbd2",
+  "bytes": 52313458,
+  "signature": "ad-hoc development signature",
+  "developerID": false,
+  "notarized": false,
+  "browserQuarantineGatekeeperAcceptanceTested": false
+}

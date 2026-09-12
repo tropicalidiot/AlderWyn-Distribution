@@ -1,5 +1,9 @@
 # Release 0.1.0 validation
 
+## Launcher repair follow-up
+
+The original launchers failed the user's Mac opening check. The **macfix1** replacements correct the bundle layout and apply complete development signatures. Native Intel and Apple silicon macOS 15.7.9 checks now pass: strict Apple signature verification, direct apphost rendering, LaunchServices rendering, and signature verification after ZIP extraction. [Repair details and remaining Gatekeeper limits](MAC-LAUNCHER-FIX.md). The historical Windows-only results below describe the original delivery; native game testing and notarization remain outstanding.
+
 ## Completed on Windows, 12 September 2026
 
 - Unity 6000.4.12f1 macOS Mono build succeeded: **0 errors**, 365 warnings. Warnings include package compute-shader variants and deprecated editor APIs; the build is not warning-free.

@@ -4,15 +4,17 @@ AlderWyn is a cozy crafting game in development. This repository serves the macO
 
 ## Download
 
-- [Launcher for Apple silicon Macs](https://github.com/tropicalidiot/AlderWyn-Distribution/releases/download/v0.1.0/AlderWyn-Launcher-v0.1.0-osx-arm64.zip)
-- [Launcher for Intel Macs](https://github.com/tropicalidiot/AlderWyn-Distribution/releases/download/v0.1.0/AlderWyn-Launcher-v0.1.0-osx-x64.zip)
+- [Launcher for Apple silicon Macs — repaired package](https://github.com/tropicalidiot/AlderWyn-Distribution/releases/download/v0.1.0/AlderWyn-Launcher-v0.1.0-osx-arm64-macfix1.zip)
+- [Launcher for Intel Macs — repaired package](https://github.com/tropicalidiot/AlderWyn-Distribution/releases/download/v0.1.0/AlderWyn-Launcher-v0.1.0-osx-x64-macfix1.zip)
 - [Game only — universal macOS build](https://github.com/tropicalidiot/AlderWyn-Distribution/releases/download/v0.1.0/AlderWyn-mac-v0.1.0.zip)
 - [Release notes](patchnotes/0.1.0.md)
 - [Checksums](SHA256SUMS.txt) · [Completed checks and remaining Mac tests](VALIDATION.md)
 
 The launcher requires macOS 14 or later. Extract the correct launcher ZIP, open **AlderWyn Launcher.app**, then choose **Install AlderWyn**. After installation, choose **Play AlderWyn**. Future game versions are detected through this repository. Players do not need GitHub credentials, .NET or Unity installed.
 
-These are **unsigned development previews**, built on Windows with macOS build tools. Native Mac launch/gameplay testing and Apple signing/notarization remain outstanding. macOS may block an unsigned application; follow [Apple's per-app guidance](https://support.apple.com/en-gb/102445) only for a build you trust. Do not disable Gatekeeper globally. This is not yet a signed production release.
+Use the **macfix1** launcher ZIPs. They repair the original bundle layout and missing bundle signature. They were development-signed with Apple's tools and passed strict signature verification, native startup/rendering, LaunchServices startup, and verification after ZIP extraction on Intel and Apple silicon Mac runners. [Mac repair details](MAC-LAUNCHER-FIX.md).
+
+These remain **development previews without Developer ID signing or Apple notarization**. If macOS instead reports an unidentified developer or says Apple cannot check the app, use **System Settings → Privacy & Security → Open Anyway** for this trusted build, if offered. Follow [Apple's per-app guidance](https://support.apple.com/en-gb/102445). If it still says **damaged**, report the exact macOS version and message; do not disable Gatekeeper. Native game acceptance testing remains outstanding.
 
 ## Playing
 
