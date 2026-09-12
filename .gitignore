@@ -1,0 +1,6 @@
+*.zip
+*.app/
+.DS_Store
+*.p12
+*.mobileprovision
+.env
