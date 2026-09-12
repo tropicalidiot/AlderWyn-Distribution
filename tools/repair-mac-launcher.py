@@ -34,6 +34,8 @@ for path in sorted((contents/'MacOS').iterdir()):
     destination=contents/directory/path.name
     path.rename(destination)
     path.symlink_to('../'+directory+'/'+path.name, target_is_directory=destination.is_dir())
+    if is_native:
+        (contents/'Resources'/path.name).symlink_to('../Frameworks/'+path.name)
 native=[]
 for path in sorted(app.rglob('*')):
     if not path.is_file() or path.is_symlink():continue
