@@ -1,0 +1,3 @@
+6c98ca4424cd429bf461ef1704fde83b046144a9fe63500e907876e8c0d8d91a  AlderWyn-Launcher-v0.1.0-osx-arm64.zip
+6d14cf234eb7bee66239289d6b8dc9df50518d2d3ef9ee697d5de87a5f8f75e1  AlderWyn-Launcher-v0.1.0-osx-x64.zip
+13d07410effc4393576d7ace7fc4136c2b47cca1eabbd6399e9141194b8d648c  AlderWyn-mac-v0.1.0.zip

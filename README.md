@@ -8,6 +8,7 @@ AlderWyn is a cozy crafting game in development. This repository serves the macO
 - [Launcher for Intel Macs](https://github.com/tropicalidiot/AlderWyn-Distribution/releases/download/v0.1.0/AlderWyn-Launcher-v0.1.0-osx-x64.zip)
 - [Game only — universal macOS build](https://github.com/tropicalidiot/AlderWyn-Distribution/releases/download/v0.1.0/AlderWyn-mac-v0.1.0.zip)
 - [Release notes](patchnotes/0.1.0.md)
+- [Checksums](SHA256SUMS.txt) · [Completed checks and remaining Mac tests](VALIDATION.md)
 
 The launcher requires macOS 14 or later. Extract the correct launcher ZIP, open **AlderWyn Launcher.app**, then choose **Install AlderWyn**. After installation, choose **Play AlderWyn**. Future game versions are detected through this repository. Players do not need GitHub credentials, .NET or Unity installed.
 
