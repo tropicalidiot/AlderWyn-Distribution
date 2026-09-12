@@ -1,0 +1,15 @@
+{
+  "launcherVersion": "0.1.0",
+  "gameVersion": "0.1.0",
+  "platforms": {
+    "macos": {
+      "url": "https://github.com/tropicalidiot/AlderWyn-Distribution/releases/download/v0.1.0/AlderWyn-mac-v0.1.0.zip",
+      "sha256": "13d07410effc4393576d7ace7fc4136c2b47cca1eabbd6399e9141194b8d648c",
+      "size": 218428054
+    }
+  },
+  "patchNotes": {
+    "version": "0.1.0",
+    "url": "https://raw.githubusercontent.com/tropicalidiot/AlderWyn-Distribution/main/patchnotes/0.1.0.md"
+  }
+}
