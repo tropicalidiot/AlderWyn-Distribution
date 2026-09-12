@@ -19,13 +19,28 @@ metadata=plistlib.loads((contents/'Info.plist').read_bytes());metadata['CFBundle
 (contents/'Info.plist').write_bytes(plistlib.dumps(metadata))
 entitlements=root/'Launcher.entitlements'
 entitlements.write_bytes(plistlib.dumps({'com.apple.security.cs.allow-jit':True}))
+# macOS treats MacOS/ as nested executable code. Put managed assemblies and
+# data in Resources/, native libraries in Frameworks/, and retain relative
+# links so .NET still finds its neighboring files without custom probing.
+(contents/'Frameworks').mkdir(exist_ok=True)
+for path in sorted((contents/'MacOS').iterdir()):
+    if path == host or path.is_symlink():continue
+    if path.is_file():
+        with path.open('rb') as f:magic=f.read(4)
+        is_native=magic in (b'\xcf\xfa\xed\xfe',b'\xfe\xed\xfa\xcf',b'\xca\xfe\xba\xbe')
+    else:is_native=False
+    if is_native and path.suffix != '.dylib':continue
+    directory='Frameworks' if is_native else 'Resources'
+    destination=contents/directory/path.name
+    path.rename(destination)
+    path.symlink_to('../'+directory+'/'+path.name, target_is_directory=destination.is_dir())
 native=[]
 for path in sorted(app.rglob('*')):
     if not path.is_file() or path.is_symlink():continue
     with path.open('rb') as f:magic=f.read(4)
     if magic in (b'\xcf\xfa\xed\xfe',b'\xfe\xed\xfa\xcf',b'\xca\xfe\xba\xbe'):
         path.chmod(0o755)
-        subprocess.run(['/usr/bin/codesign','--force','--sign','-',str(path)],check=True)
+        if path != host:subprocess.run(['/usr/bin/codesign','--force','--sign','-',str(path)],check=True)
         native.append(path)
 subprocess.run(['/usr/bin/codesign','--force','--sign','-','--entitlements',str(entitlements),str(app)],check=True)
 subprocess.run(['/usr/bin/codesign','--verify','--deep','--strict','--verbose=2',str(app)],check=True)
@@ -43,6 +58,10 @@ assert (output/'launchservices.png').stat().st_size>10000, 'LaunchServices did n
 subprocess.run(['/usr/bin/codesign','--verify','--deep','--strict',str(app)],check=True)
 archive=output/f'AlderWyn-Launcher-v0.1.0-{rid}-macfix1.zip'
 subprocess.run(['/usr/bin/ditto','-c','-k','--sequesterRsrc','--keepParent',str(app),str(archive)],check=True)
+# Verify the ZIP after an actual Mac extraction, including relative links.
+roundtrip=root/'roundtrip'
+subprocess.run(['/usr/bin/ditto','-x','-k',str(archive),str(roundtrip)],check=True)
+subprocess.run(['/usr/bin/codesign','--verify','--deep','--strict',str(roundtrip/app.name)],check=True)
 digest=hashlib.sha256(archive.read_bytes()).hexdigest()
 report={'rid':rid,'macOS':subprocess.check_output(['sw_vers','-productVersion'],text=True).strip(),'cpu':os.uname().machine,'bundleBuild':'2','nativeBinariesSigned':len(native),'appleCodesignStrictVerification':True,'nativeDirectLaunch':True,'launchServicesRender':True,'sha256':digest,'bytes':archive.stat().st_size,'signature':'ad-hoc development signature','developerID':False,'notarized':False,'browserQuarantineGatekeeperAcceptanceTested':False}
 (output/'verification.json').write_text(json.dumps(report,indent=2)+'\n')
